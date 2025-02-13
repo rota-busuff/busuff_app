@@ -7,6 +7,7 @@ class Localizador {
   static final StreamController<Position> _localizacaoController = StreamController<Position>.broadcast();
   static Stream<Position> get localizacaoStream => _localizacaoController.stream;
 
+  // chamada por controle.liberarAcesso
   static Future<bool?> liberar() async {
     bool? liberado = false;
 
@@ -39,10 +40,12 @@ class Localizador {
     return liberado;
   }
 
+  // chamada por controle.encerrarConexao
   static void encerrar() {
     _localizacaoSubscription?.cancel();
   }
 
+  // chamada por controle.enviarLocalizacao
   static bool checarDistancia(Position? ultimaPosicao, Position novaPosicao) {
     if (ultimaPosicao == null) return true;
 

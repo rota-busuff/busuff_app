@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
                     ElevatedButton(
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(FocusNode());
-                        final sucessoLogin = await Controle.inciarConexao(senhaController.text);
+                        final sucessoLogin = await Controle.iniciarConexao(senhaController.text);
 
                         if (sucessoLogin == true) {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home(motorista: Controle.motoristaLogado)));

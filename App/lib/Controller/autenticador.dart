@@ -4,25 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../Model/motorista.dart';
 
 class Autenticador {
+  // chamada por controle.selecionarTela
   static Future<bool> checar() async {
     final preferencias = await SharedPreferences.getInstance();
     return preferencias.containsKey("id_motorista");
   }
 
-  static Future<List<Map<String, dynamic>>?> _acessarAPI() async {
-    String link = "https://8293-177-12-9-161.ngrok-free.app/usuarios";
-    http.Response resposta = await http.get(Uri.parse(link));
-
-    if (resposta.statusCode == 200) {
-      List<dynamic> dados = json.decode(resposta.body);
-      List<Map<String, dynamic>> listaConvertida =
-          dados.map((item) => Map<String, dynamic>.from(item)).toList();
-      return listaConvertida;
-    }
-
-    return null;
-  }
-
+  // chamada por controle.iniciarConexao
   static Future<bool?> logar(String senhaTentativa) async {
     //List<Map<String, dynamic>>? motoristas = await Autenticador._acessarAPI();
     List<Map<String, dynamic>>? motoristas = [
@@ -43,9 +31,18 @@ class Autenticador {
     return null;
   }
 
-  static Future<void> deslogar() async {
-    final preferencias = await SharedPreferences.getInstance();
-    preferencias.clear();
+  static Future<List<Map<String, dynamic>>?> _acessarAPI() async {
+    String link = "https://8293-177-12-9-161.ngrok-free.app/usuarios";
+    http.Response resposta = await http.get(Uri.parse(link));
+
+    if (resposta.statusCode == 200) {
+      List<dynamic> dados = json.decode(resposta.body);
+      List<Map<String, dynamic>> listaConvertida =
+          dados.map((item) => Map<String, dynamic>.from(item)).toList();
+      return listaConvertida;
+    }
+
+    return null;
   }
 
   static Future<void> _setMotorista(Map<String, dynamic> motorista) async {
@@ -55,6 +52,13 @@ class Autenticador {
     await preferencias.setString("rota_motorista", motorista["login"] ?? "");
   }
 
+  // chamada por controle.encerrarConexao
+  static Future<void> deslogar() async {
+    final preferencias = await SharedPreferences.getInstance();
+    preferencias.clear();
+  }
+
+  // chamada por controle.selecionarTela e controle.iniciarConexao
   static Future<Motorista?> getMotorista() async {
     final preferencias = await SharedPreferences.getInstance();
     String? idMotorista = preferencias.getString("id_motorista");

@@ -5,20 +5,20 @@ class Motorista {
   final String? senha;
   final String? rota;
   late Position ultimaPosicao;
+  late List<Map<String, Position>> pontos;
 
   Motorista(this.id, this.senha, this.rota) {
     ultimaPosicao = Position(
-      latitude: 0.0,
-      longitude: 0.0,
-      timestamp: DateTime.now(),
-      accuracy: 0,
-      altitude: 0,
-      heading: 0,
-      speed: 0.0,
-      speedAccuracy: 0.0,
-      altitudeAccuracy: 0.0,
-      headingAccuracy: 0.0,
-      floor: 0
-    );
+        latitude: 0.0,
+        longitude: 0.0,
+        timestamp: DateTime.now(),
+        accuracy: 0,
+        altitude: 0,
+        heading: 0,
+        speed: 0.0,
+        speedAccuracy: 0.0,
+        altitudeAccuracy: 0.0,
+        headingAccuracy: 0.0,
+        floor: 0);
   }
 }
