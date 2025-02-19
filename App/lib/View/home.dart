@@ -45,6 +45,7 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
+      
       body: Center(
         child: StreamBuilder<Position>(
           stream: Controle.receberLocalizacao(),

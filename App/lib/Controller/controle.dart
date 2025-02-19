@@ -12,6 +12,7 @@ class Controle {
   static Motorista motoristaLogado = Motorista(null, null, null);
   static bool? liberado;
 
+  // chamada por main
   static Future<Widget> selecionarTela() async {
     bool conectado = await Autenticador.checar();
 
@@ -25,7 +26,8 @@ class Controle {
     return const Login();
   }
 
-  static Future<bool?> inciarConexao(String senhaTentativa) async {
+  // chamada por login
+  static Future<bool?> iniciarConexao(String senhaTentativa) async {
     bool? logado = await Autenticador.logar(senhaTentativa);
 
     if (logado == true) {
@@ -38,12 +40,14 @@ class Controle {
     return logado;
   }
 
+  // chamada por home
   static void encerrarConexao() async {
     await Autenticador.deslogar();
     Localizador.encerrar();
     FlutterBackgroundService().invoke("stopService");
   }
 
+  // chamada por home
   static void liberarAcesso() async {
     liberado = await Localizador.liberar();
     _liberarSegundoPlano();
@@ -78,6 +82,7 @@ class Controle {
     }
   }
 
+  // chamada por home
   static Stream<Position> receberLocalizacao() {
     return Localizador.localizacaoStream;
   }
